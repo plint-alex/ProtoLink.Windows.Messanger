@@ -1,0 +1,54 @@
+<UserControl x:Class="ProtoLink.Windows.Messanger.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:ProtoLink.Windows.Messanger.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Command="{Binding CloseCommand}" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" 
+                Width="30" Height="30" 
+                Content="✕" 
+                Background="Transparent" 
+                BorderThickness="0" 
+                FontSize="18"
+                ToolTip="Close Settings"/>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel MaxWidth="700" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="API Settings" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="API Base Address" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding ApiBaseAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+                <Button Content="Save Settings" Command="{Binding SaveCommand}" Height="30" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Account" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <Grid Visibility="{Binding IsAuthenticated, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding CurrentLogin, StringFormat='Logged in as: {0}'}" Margin="0,0,0,10"/>
+                        <Button Content="Log Off" Command="{Binding LogOffCommand}" Height="30" Width="100" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Visibility="{Binding IsAuthenticated, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                    <views:LoginView DataContext="{Binding LoginViewModel}"/>
+                </Grid>
+
+                <TextBlock Text="Contacts" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"
+                          Visibility="{Binding IsAuthenticated, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Grid Visibility="{Binding IsAuthenticated, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <views:AddContactView DataContext="{Binding AddContactViewModel}"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

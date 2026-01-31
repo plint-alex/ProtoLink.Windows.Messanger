@@ -1,0 +1,12 @@
+﻿<Application x:Class="ProtoLink.Windows.Messanger.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProtoLink.Windows.Messanger"
+             xmlns:services="clr-namespace:ProtoLink.Windows.Messanger.Services"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <services:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <services:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <services:StatusColorConverter x:Key="StatusColorConverter"/>
+    </Application.Resources>
+</Application>
